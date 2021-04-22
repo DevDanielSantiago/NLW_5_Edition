@@ -26,7 +26,36 @@ type HomeProps = {
 
 export default function Home({ latestEpisodes, othersEpisodes }: HomeProps) {
   return (
-    <></>
+    <div className={styles.homepage}>
+      <section className={styles.latestEpisodes}>
+        <h2>Últimos lançamentos</h2>
+
+        <ul>
+          {latestEpisodes.map((episode) => {
+            return (
+              <li key={episode.id}>
+                <Image width={192} height={192} src={episode.thumbnail} alt={episode.title} objectFit="cover" />
+
+                <div className={styles.episodeDetails}>
+                  <a href={episode.url}>{episode.title}</a>
+                  <p>{episode.members}</p>
+                  <span>{episode.publishedAt}</span>
+                  <span>{episode.durationAsString}</span>
+                </div>
+
+                <button type="button">
+                  <img src="/play-green.svg" alt="Tocar episódio"/>
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+
+      <section className={styles.othersEpisodes}>
+
+      </section>
+    </div>
   )
 }
 
