@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next'
 import { api } from '../services/api'
 import { format, parseISO } from 'date-fns'
+import Link from 'next/link'
 import ptBR from 'date-fns/locale/pt-BR'
 import { convertDurationToTimeString } from '../utils/convertDuration'
 import Image from 'next/image'
@@ -13,7 +14,6 @@ type Episode = {
   members: string,
   publishedAt: string,
   thumbnail: string,
-  description: string,
   duration: number,
   durationAsString: string,
   url: string
@@ -110,7 +110,6 @@ export const getStaticProps: GetStaticProps = async () => {
       members: episode.members,
       publishedAt: format(parseISO(episode.published_at), 'd MMM yy', { locale: ptBR }),
       thumbnail: episode.thumbnail,
-      description: episode.description,
       duration: Number(episode.file.duration),
       durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
       url: episode.file.url
