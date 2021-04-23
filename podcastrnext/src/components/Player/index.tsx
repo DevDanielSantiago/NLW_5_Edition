@@ -1,21 +1,24 @@
 import Image from "next/image"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
 import styles from "./styles.module.scss"
 import { usePlayer } from "../../contexts/PlayerContext"
+import { convertDurationToTimeString } from "../../utils/convertDuration"
 
 export function Player () {
   const audioRef = useRef<HTMLAudioElement>(null)
-  
+
   const {
     episodeList,
     currentEpisodeIndex,
     isPlaying,
     isLooping,
+    isShuffeling,
     togglePlay,
     toggleLoop,
+    toogleShuffle,
     setPlayingState,
     playNext,
     playPrevious,
@@ -85,7 +88,12 @@ export function Player () {
         ) }
 
         <div className={styles.buttons}>
-          <button type="button" disabled={!episode}>
+          <button
+            type="button"
+            disabled={!episode || episodeList.length === 1}
+            onClick={toogleShuffle}
+            className={isShuffeling ? styles.isActive : ''}
+          >
             <img src="/shuffle.svg" alt="Embaralhar"/>
           </button>
 
