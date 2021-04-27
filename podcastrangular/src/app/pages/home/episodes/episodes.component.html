@@ -2,25 +2,11 @@
   <Head>
     <title>Home | Podcastr</title>
   </Head>
+ 
   <section class="latestEpisodes">
     <h2>Últimos lançamentos</h2>
 
-    <ul>
-      <li *ngFor="let episode of latestEpisodes">
-        <img width="64" height="64" src="{{episode.thumbnail}}" alt="{{episode.title}}" style="object-fit: cover;">
-
-        <div class="episodeDetails">
-          <a [routerLink]="['/episode/', episode.id]">{{episode.title}}</a>
-          <p>{{episode.members}}</p>
-          <span>{{episode.publishedAt}}</span>
-          <span>{{episode.durationAsString}}</span>
-        </div>
-
-        <button type="button" (click)="play(episode)">
-          <img src="assets/img/play-green.svg" alt="Tocar episódio"/>
-        </button>
-      </li>
-    </ul>
+    <app-card-episode [latestEpisodes]="latestEpisodes" (episode)="play($event)"></app-card-episode>
   </section>
 
   <section class="othersEpisodes">
