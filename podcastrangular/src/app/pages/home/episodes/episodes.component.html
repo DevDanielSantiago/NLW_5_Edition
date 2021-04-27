@@ -1,0 +1,60 @@
+<div class="homepage">
+  <Head>
+    <title>Home | Podcastr</title>
+  </Head>
+  <section class="latestEpisodes">
+    <h2>Últimos lançamentos</h2>
+
+    <ul>
+      <li *ngFor="let episode of latestEpisodes">
+        <img width="64" height="64" src="{{episode.thumbnail}}" alt="{{episode.title}}" style="object-fit: cover;">
+
+        <div class="episodeDetails">
+          <a [routerLink]="['/episode/', episode.id]">{{episode.title}}</a>
+          <p>{{episode.members}}</p>
+          <span>{{episode.publishedAt}}</span>
+          <span>{{episode.durationAsString}}</span>
+        </div>
+
+        <button type="button" (click)="play(episode)">
+          <img src="assets/img/play-green.svg" alt="Tocar episódio"/>
+        </button>
+      </li>
+    </ul>
+  </section>
+
+  <section class="othersEpisodes">
+    <h2>Todos episódios</h2>
+
+    <table cellspacing="0">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Podcasts</th>
+          <th>Integrantes</th>
+          <th>Data</th>
+          <th>Duração</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let episode of othersEpisodes; let index = index">
+          <td style="width:72">
+            <img width="40" height="40" src="{{episode.thumbnail}}" alt="{{episode.title}}" style="object-fit: cover;" />
+          </td>
+          <td>
+            <a [routerLink]="['/episode/', episode.id]" routerLinkActive="router-link-active" >{{episode.title}}</a>
+          </td>
+          <td>{{episode.members}}</td>
+          <td style="width: 100">{{episode.publishedAt}}</td>
+          <td>{{episode.durationAsString}}</td>
+          <td>
+            <button type="button" (click)="playList(index + latestEpisodes.length)">
+              <img src="assets/img/play-green.svg" alt="Tocar episódio"/>
+            </button>
+          </td>
+        </tr> 
+      </tbody>
+    </table>
+  </section>
+</div>

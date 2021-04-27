@@ -1,0 +1,64 @@
+<div class=playerContainer>
+  <header>
+    <img src="../../../assets/img/playing.svg" alt="Tocando agora"/>
+    <strong>Tocando agora</strong>
+  </header>
+
+  <div class="currentEpisode" *ngIf="episode; else emptyPlayer">
+    <img width="197" height="197" src="{{episode.thumbnail}}" style="object-fit: cover;"/>
+    <strong>{{episode.title}}</strong>
+    <span>{{episode.members}}</span>
+  </div>
+
+  <div class="slider">
+    <div class="emptySlider"></div>
+  </div>
+
+  <footer class="empty">
+    <div class="progress">
+      <span>{{convertDuration((progress$ | async).progress)}}</span>
+      <div class="slider">
+      <div class="emptySlider"></div>
+      </div>
+      <span>{{convertDuration(episode?.duration || 0)}}</span>
+    </div>
+
+    <audio
+      id="player"
+      src="{{episode?.url}}"
+      autoplay="true"
+      (play)="playingState(true)"
+      (pause)="playingState(false)"
+      (ended)="handleEpisodeEnded()"
+      (loadedmetadata)="setProgressListener()"
+    ></audio>
+
+    <div class="buttons">
+      <button type="button" [ngClass]="isShuffeling? 'isActive' : ''" [disabled]="!episode" (click)="toggleShuffle()">
+        <img src="../../../assets/img/shuffle.svg" alt="Embaralhar"/>
+      </button>
+
+      <button type="button" [disabled]="!episode|| !hasPrevious" (click)="playPrevious()">
+        <img src="../../../assets/img/play-previous.svg" alt="Tocar anterior"/>
+      </button>
+      <button type="button" class="playButton" [disabled]="!episode" (click)="togglePlay()">
+        <img *ngIf="(player$ | async).isPlaying" src="../../../assets/img/pause.svg" alt="Pausar"/> 
+        <img *ngIf="!(player$ | async).isPlaying" src="../../../assets/img/play.svg" alt="Tocar"/> 
+      </button>
+
+      <button type="button" [disabled]="!episode || !hasNext" (click)="playNext()">
+        <img src="../../../assets/img/play-next.svg" alt="Tocar próxima"/>
+      </button>
+
+      <button type="button" [ngClass]="isLooping? 'isActive' : ''" [disabled]="!episode" (click)="toggleLoop()">
+        <img src="../../../assets/img/repeat.svg" alt="Repetir"/>
+      </button>
+    </div>
+  </footer>
+</div>
+
+<ng-template #emptyPlayer>
+  <div class="emptyPlayer">
+    <strong>Selecione um podcast para ouvir</strong>
+  </div>
+</ng-template>

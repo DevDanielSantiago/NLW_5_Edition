@@ -1,0 +1,23 @@
+<div class="episode">
+  <head>
+    <title>{{episode?.title}} | Podcastr</title>
+  </head>
+  <div class="thumbnailContainer">
+    <button type="button" [routerLink]="['/']">
+      <img src="./assets/img/arrow-left.svg" alt="Voltar"/>
+    </button>
+    <img width="530" height="160" src="{{episode?.thumbnail}}" style="object-fit: cover;"/>
+    <button type="button" (click)="play(episode)">
+      <img src="./assets/img/play.svg" alt="Tocar episódio"/>
+    </button>
+  </div>
+
+  <header>
+    <h1>{{episode?.title}}</h1>
+    <span>{{episode?.members}}</span>
+    <span>{{episode?.publishedAt}}</span>
+    <span>{{episode?.durationAsString}}</span>
+  </header>
+
+  <p class="description" [innerHTML]="episode?.description"></p>
+</div>
