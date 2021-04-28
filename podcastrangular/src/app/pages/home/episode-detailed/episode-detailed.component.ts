@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -25,7 +25,8 @@ type Episode = {
 @Component({
   selector: 'app-episode-detailead',
   templateUrl: './episode-detailed.component.html',
-  styleUrls: ['./episode-detailed.component.scss']
+  styleUrls: ['./episode-detailed.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EpisodeDetailedComponent implements OnInit, OnDestroy {
 
